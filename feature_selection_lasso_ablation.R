@@ -2,10 +2,12 @@
 # Sensitive text and non-English comments were removed.
 
 colnames(training_set)
-training_set_noacdlt <- training_set[, c(1:8, 13)]
+training_set_noacdlt <- dplyr::select(
+  training_set, Age, gender, pre_S, pre_C, LogMAR, AL, K1, K2, WTW
+)
 x_lasso <- as.matrix(training_set_noacdlt)
 
-y_lasso <- as.matrix(training_set[, 14])
+y_lasso <- as.matrix(training_set$Group)
 f_lasso <- glmnet(x_lasso, y_lasso, family="binomial", alpha=1)
 
 plot(f_lasso,
@@ -39,14 +41,13 @@ coef_long <- coef_long %>%
                               "pre_S" ~ "Sphere",
                               "pre_C" ~ "Cylinder",
                               "LogMAR" ~ "BCVA (logMAR)",
-                              "KSE" ~ "mean Keratometry",
                               "K1" ~ "SimK1",
                               "K2" ~ "SimK2",
                               .default = Feature
   ))
 coef_long
 active_vars <- c(active_vars, "Gender", "Sphere", "Cylinder", "BCVA (logMAR)",
-                 "mean Keratometry", "SimK1", "SimK2")
+                 "SimK1", "SimK2")
 coef_plot_noacdlt <- ggplot(coef_long, aes(x = log_lambda, y = Coefficient, group = Feature)) +
 
   geom_line(color = "grey80", alpha = 0.8, size = 1.2) +
@@ -96,10 +97,12 @@ table_output <- logistic_model_varible_select_noacdlt %>%
 save_as_docx(table_output, path = "tables/Logistic_Model_Result_noacdlt.docx")
 
 colnames(training_set)
-training_set_noacd <- training_set[, c(1:8, 12:13)]
+training_set_noacd <- dplyr::select(
+  training_set, Age, gender, pre_S, pre_C, LogMAR, AL, K1, K2, LT, WTW
+)
 x_lasso <- as.matrix(training_set_noacd)
 
-y_lasso <- as.matrix(training_set[, 14])
+y_lasso <- as.matrix(training_set$Group)
 f_lasso <- glmnet(x_lasso, y_lasso, family="binomial", alpha=1)
 
 plot(f_lasso,
@@ -133,7 +136,6 @@ coef_long <- coef_long %>%
                               "pre_S" ~ "Sphere",
                               "pre_C" ~ "Cylinder",
                               "LogMAR" ~ "BCVA (logMAR)",
-                              "KSE" ~ "mean Keratometry",
                               "K1" ~ "SimK1",
                               "K2" ~ "SimK2",
                               .default = Feature
@@ -141,7 +143,7 @@ coef_long <- coef_long %>%
 coef_long
 
 active_vars <- c(active_vars, "Gender", "Sphere", "Cylinder", "BCVA (logMAR)",
-                 "mean Keratometry", "SimK1", "SimK2")
+                 "SimK1", "SimK2")
 
 active_vars
 active_vars <- c(active_vars[1:9], active_vars[11:17] )
@@ -194,10 +196,12 @@ table_output <- logistic_model_varible_select_noacd %>%
 save_as_docx(table_output, path = "tables/Logistic_Model_Result_noacd.docx")
 
 colnames(training_set)
-training_set_nolt <- training_set[, c(1:8, 11,13)]
+training_set_nolt <- dplyr::select(
+  training_set, Age, gender, pre_S, pre_C, LogMAR, AL, K1, K2, ACD, WTW
+)
 x_lasso <- as.matrix(training_set_nolt)
 
-y_lasso <- as.matrix(training_set[, 14])
+y_lasso <- as.matrix(training_set$Group)
 f_lasso <- glmnet(x_lasso, y_lasso, family="binomial", alpha=1)
 
 plot(f_lasso,
@@ -231,7 +235,6 @@ coef_long <- coef_long %>%
                               "pre_S" ~ "Sphere",
                               "pre_C" ~ "Cylinder",
                               "LogMAR" ~ "BCVA (logMAR)",
-                              "KSE" ~ "mean Keratometry",
                               "K1" ~ "SimK1",
                               "K2" ~ "SimK2",
                               .default = Feature
@@ -239,7 +242,7 @@ coef_long <- coef_long %>%
 coef_long
 
 active_vars <- c(active_vars, "Gender", "Sphere", "Cylinder", "BCVA (logMAR)",
-                 "mean Keratometry", "SimK1", "SimK2")
+                 "SimK1", "SimK2")
 
 active_vars
 

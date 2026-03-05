@@ -7,9 +7,9 @@ library(extrafont)
 library(glmnet)
 
 colnames(training_set)
-x_lasso <- as.matrix(training_set[, c(1:8, 11:13)])
+x_lasso <- as.matrix(training_set[, setdiff(colnames(training_set), "Group")])
 
-y_lasso <- as.matrix(training_set[, 14])
+y_lasso <- as.matrix(training_set$Group)
 f_lasso <- glmnet(x_lasso, y_lasso, family="binomial", alpha=1)
 
 plot(f_lasso,
@@ -49,9 +49,11 @@ coef_long <- coef_long %>%
                               .default = Feature
   ))
 coef_long
-active_vars <- c(active_vars, "Age","Gender", "Sphere", "Cylinder", "BCVA (logMAR)",
-                 "mean Keratometry", "SimK1", "SimK2")
-active_vars <- c(active_vars[1:10], active_vars[12:19])
+active_vars <- unique(c(
+  active_vars,
+  "Age", "Gender", "Sphere", "Cylinder", "BCVA (logMAR)",
+  "SimK1", "SimK2", "AL", "ACD", "LT", "WTW"
+))
 coef_plot <- ggplot(coef_long, aes(x = log_lambda, y = Coefficient, group = Feature)) +
 
   geom_line(color = "grey80", alpha = 0.8, size = 1.2) +

@@ -20,6 +20,7 @@ This repository contains a cleaned and anonymized R code package for submission.
 - `evaluation_internal_no_acd_lt_plots.R`: plotting for no-ACD-LT ablation.
 - `evaluation_external_ablation_plots.R`: external plotting and model comparison.
 - `subgroup_auc_analysis_external.R`: subgroup AUC analysis (external cohort).
+- `comparative_test_analysis.R`: two-phase clinician-vs-AI comparative test analysis.
 - `feature_selection_lasso_full.R`: variable selection (full setting).
 - `feature_selection_lasso_ablation.R`: variable selection (ablation settings).
 - `youden_thresholds.R`: Youden index threshold selection.
@@ -31,6 +32,7 @@ This repository contains a cleaned and anonymized R code package for submission.
 ## Data
 - `data/sample1_anonymized.xlsx`
 - `data/sample1_anonymized.csv`
+- `data/comparative_test_input_template.csv`
 
 ## Sanitization Notes
 - Non-English comments and direct identifiers were removed/replaced.

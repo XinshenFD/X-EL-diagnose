@@ -59,7 +59,6 @@ pr_data$Model <- factor(pr_data$Model, levels = target_levels)
 auprc_values_clean <- auprc_values
 auprc_labels <- paste0(auprc_values_clean$Model, " (AUPRC=", round(auprc_values_clean$.estimate, 3), ")")
 names(auprc_labels) <- auprc_values_clean$Model
-auprc_labels[4] <- "XGB-noLT/ACD (AUPRC=0.990)"
 plot_pr_extra_validation <- ggplot(pr_data, aes(x = recall, y = precision, color = Model)) +
   geom_line(size = 1) +
 

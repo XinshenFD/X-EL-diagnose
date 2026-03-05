@@ -2,8 +2,9 @@
 # Sensitive text and non-English comments were removed.
 
 colnames(data_predictors)
-x_lasso <- as.matrix(data_predictors[, c(1:10, 13)])
-y_lasso <- as.matrix(data_predictors[, 14])
+feature_cols_full <- setdiff(colnames(data_predictors), "Group")
+x_lasso <- as.matrix(data_predictors[, feature_cols_full])
+y_lasso <- as.matrix(data_predictors$Group)
 f_lasso <- glmnet(x_lasso, y_lasso, family="binomial", alpha=1)
 plot(f_lasso,
      xvar = "lambda",
@@ -304,14 +305,3 @@ plotmodel_no_ACD_LT_data_extras_new1202 <- ggplot(roc_no_ACD_LT_df, aes(x = FPR,
 
 plotmodel_no_ACD_LT_data_extras
 plotmodel_no_ACD_LT_data_extras_new1202
-data_xiaoce_used$KSE <- 42.21633
-log10(1/0.6)
-data_xiaoce_used[4, ] <- c(2.5, -2.5, 0.2218487, 22.0, 40.26, 3.56, 3.78, 40.69)
-data_xiaoce_used$K2 <- 41.13
-predict(model_no_ACD_LT_knn, data_xiaoce_used)
-predict(model_no_ACD_LT_log, data_xiaoce_used)
-predict(model_no_ACD_LT_rf, data_xiaoce_used)
-predict(model_no_ACD_LT_svm, data_xiaoce_used)
-predict(model_no_ACD_LT_tree, data_xiaoce_used)
-predict(model_no_ACD_LT_xgb, data_xiaoce_used)
-predict(model_no_ACD_LT_xgb, xgb_no_ACD_LT_pred_best_misclassified[32, ],type="prob")

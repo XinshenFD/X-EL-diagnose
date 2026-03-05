@@ -13,8 +13,9 @@ training_set <- data_predictors[training, ]
 training_set
 validation_set <- data_predictors[-training, ]
 
-x_lasso <- as.matrix(training_set[, c(1:13)])
-y_lasso <- as.matrix(training_set[, 14])
+feature_cols_full <- setdiff(colnames(training_set), "Group")
+x_lasso <- as.matrix(training_set[, feature_cols_full])
+y_lasso <- as.matrix(training_set$Group)
 f_lasso <- glmnet(x_lasso, y_lasso, family="binomial", alpha=1)
 plot(f_lasso,
      xvar = "lambda",
@@ -36,7 +37,6 @@ data_predictors_af_lasso <- dplyr::select(data_predictors,
                                           LogMAR,
                                           AL,
                                           K1,
-                                          KSE,
                                           ACD,
                                           LT,
                                           WTW,
@@ -44,7 +44,7 @@ data_predictors_af_lasso <- dplyr::select(data_predictors,
 
 table(data_predictors_af_lasso$Group)
 
-logistic_model_varible_select<- glm(Group ~  Age+ gender+ pre_S+ pre_C+LogMAR+AL+ K1+KSE+ ACD+LT+WTW,
+logistic_model_varible_select<- glm(Group ~  Age+ gender+ pre_S+ pre_C+LogMAR+AL+ K1+ ACD+LT+WTW,
     data = data_predictors_af_lasso,
     family = binomial(link = "logit"))
 summary(logistic_model_varible_select)
@@ -59,8 +59,6 @@ data_predictors_af_logistic <- dplyr::select(data_predictors_af_lasso,
                                              LT,
                                              Group)
 length(data_predictors$K2)
-length(data_predictors_af_logistic_no_ACD_LT$K1)
-table(rownames(data_predictors_af_logistic_no_ACD_LT) == rownames(data_predictors))
 
 summary(glm(Group ~  pre_S+ pre_C+LogMAR+AL+ K1+ ACD+LT,
                                     data = data_predictors_af_lasso,
@@ -95,9 +93,6 @@ data_predictors_af_logistic$Group <- factor(data_predictors_af_logistic$Group,
 
 data_predictors_af_logistic
 summary(data_predictors_af_logistic)
-which(rownames(data_predictors_af_logistic) %in% c("2692" ,"2702" ,"3602", "3614"))
-
-data_predictors_af_logistic[c(1240 ,1241, 1329 ,1330), 8] <- "No"
 data_predictors_af_logistic$Group
 summary(data_predictors_af_logistic$Group)
 

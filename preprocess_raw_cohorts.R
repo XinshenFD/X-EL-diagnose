@@ -25,7 +25,6 @@ subset(CC_TC_data,
        CC_TC_data$Age <1)
 which(CC_TC_data$name == "REDACTED", arr.ind = TRUE)
 colnames(CC_TC_data)
-CC_TC_data[435:436, 31] <- c(9.570157, 9.570157)
 
 CC_TC_data
 

@@ -12,11 +12,6 @@ library(xgboost)
 xgb.save(final_xgb_model, "model/my_xgb_model.json")
 
 xgb.save(final_xgb_model, "model/my_xgb_model.model")
-aaa <- data_predictors_af_logistic_no_ACD_LT_train[1,c(1:5, 7) ]
-aaa <-  as.matrix(aaa)
-aaa
-aaa[1] <- 0.55
-predict(model_no_ACD_LT_xgb$finalModel, aaa)
 
 xgb.save(model_no_ACD_LT_xgb$finalModel, "my_model_native.model")
 

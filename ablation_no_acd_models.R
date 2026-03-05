@@ -2,8 +2,9 @@
 # Sensitive text and non-English comments were removed.
 
 colnames(data_predictors)
-x_lasso <- as.matrix(data_predictors[, c(1:10, 13)])
-y_lasso <- as.matrix(data_predictors[, 14])
+feature_cols_full <- setdiff(colnames(data_predictors), "Group")
+x_lasso <- as.matrix(data_predictors[, feature_cols_full])
+y_lasso <- as.matrix(data_predictors$Group)
 f_lasso <- glmnet(x_lasso, y_lasso, family="binomial", alpha=1)
 plot(f_lasso,
      xvar = "lambda",
